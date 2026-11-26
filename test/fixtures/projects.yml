@@ -1,0 +1,23 @@
+landslides:
+  tutor: diana
+  title: Alerta temprana de deslizamientos con sensores IoT
+  title_key: <%= Project.title_key_for("Alerta temprana de deslizamientos con sensores IoT") %>
+  summary: Red de sensores de humedad e inclinación en laderas con riesgo.
+  status: <%= Project.statuses[:in_progress] %>
+  budget: 180000000
+  starts_on: 2026-02-02
+
+coffee:
+  tutor: carlos
+  title: Detección de roya en cafetales con visión por computador
+  title_key: <%= Project.title_key_for("Detección de roya en cafetales con visión por computador") %>
+  summary: Clasificación de hojas para identificar roya en etapas tempranas.
+  status: <%= Project.statuses[:proposed] %>
+  budget: 120000000
+
+gardens:
+  title: Huertas hidropónicas en colegios públicos
+  title_key: <%= Project.title_key_for("Huertas hidropónicas en colegios públicos") %>
+  summary: Huertas escolares con sistemas NFT de bajo costo.
+  status: <%= Project.statuses[:proposed] %>
+  budget: 45000000

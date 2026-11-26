@@ -1,0 +1,17 @@
+landslides_andina:
+  project: landslides
+  sponsor: andina
+  amount: 90000000
+  committed_on: 2026-02-02
+
+landslides_secretaria:
+  project: landslides
+  sponsor: secretaria
+  amount: 60000000
+  committed_on: 2026-02-10
+
+coffee_andina:
+  project: coffee
+  sponsor: andina
+  amount: 30000000
+  committed_on: 2026-03-01

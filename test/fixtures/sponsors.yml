@@ -1,0 +1,20 @@
+andina:
+  name: Andina Tecnología S.A.S.
+  kind: <%= Sponsor.kinds[:company] %>
+  nit: 900512384-5
+  phone: "6017456200"
+  email: alianzas@andina.example
+
+secretaria:
+  name: Secretaría Departamental de Ciencia
+  kind: <%= Sponsor.kinds[:public_entity] %>
+  nit: 899999123-7
+  phone: "6043839000"
+  email: ciencia@departamento.example
+
+agua:
+  name: Fundación Agua Viva
+  kind: <%= Sponsor.kinds[:ngo] %>
+  nit: 901233457-0
+  phone: "3104567890"
+  email: contacto@aguaviva.example
