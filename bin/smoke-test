@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Probes a running instance: health check, public catalog, CSV export, JSON API, write guard and security headers.
+set -euo pipefail
+
+base_url="${1:-http://localhost:3000}"
+
+for _ in $(seq 1 30); do
+  curl -fsS "$base_url/up" >/dev/null 2>&1 && break
+  sleep 2
+done
+
+curl -fsS "$base_url/up" >/dev/null
+echo "ok: /up"
+
+curl -fsS "$base_url/" | grep -q "Proyectos"
+echo "ok: public project catalog renders in spanish"
+
+curl -fsS "$base_url/proyectos.csv" | head -1 | grep -q "porcentaje_financiado"
+echo "ok: funding report exports as csv"
+
+projects=$(curl -fsS "$base_url/api/v1/projects")
+grep -q '"total_count":6' <<<"$projects" || { echo "expected the 6 demo projects, got: $projects"; exit 1; }
+echo "ok: json api answers with the demo dataset"
+
+status=$(curl -s -o /dev/null -w "%{http_code}" "$base_url/proyectos/nuevo")
+[ "$status" = "302" ] || { echo "expected 302 for anonymous project creation, got $status"; exit 1; }
+echo "ok: writing requires a session"
+
+headers=$(curl -sI "$base_url/")
+grep -qi "^content-security-policy:.*frame-ancestors 'none'" <<<"$headers" || { echo "missing content security policy"; exit 1; }
+grep -qi "^x-content-type-options: nosniff" <<<"$headers" || { echo "missing nosniff header"; exit 1; }
+echo "ok: security headers present"

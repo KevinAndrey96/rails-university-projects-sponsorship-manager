@@ -1,0 +1,21 @@
+services:
+  web:
+    build: .
+    image: rails-sponsorship-manager
+    ports:
+      - "${APP_PORT:-3000}:80"
+    environment:
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:?set SECRET_KEY_BASE in .env, see .env.example}
+      RAILS_FORCE_SSL: ${RAILS_FORCE_SSL:-false}
+      APP_HOST: ${APP_HOST:-localhost}
+      MAILER_FROM: ${MAILER_FROM:-Patrocinios Universitarios <no-reply@example.com>}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      LOAD_DEMO_DATA: ${LOAD_DEMO_DATA:-true}
+      SOLID_QUEUE_IN_PUMA: "true"
+    volumes:
+      - storage:/rails/storage
+    restart: unless-stopped
+
+volumes:
+  storage:
