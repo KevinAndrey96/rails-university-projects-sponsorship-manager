@@ -1,0 +1,272 @@
+es:
+  app:
+    name: Patrocinios Universitarios
+    tagline: Gestión de proyectos de investigación y su financiación
+    description: Gestor de proyectos universitarios en Ruby on Rails 8 con Hotwire. Tutores, estudiantes líderes, patrocinadores y avance de financiación en tiempo real.
+    navigation: Navegación principal
+    sign_in: Ingresar
+    sign_out: Cerrar sesión
+    cancel: Cancelar
+    edit: Editar
+    destroy: Eliminar
+    all: Todos
+    footer: Proyecto de código abierto de Kevin Andrey Herrera Silva.
+    source_code: Código fuente
+    form_errors:
+      one: "Revisa el formulario: hay 1 error."
+      other: "Revisa el formulario: hay %{count} errores."
+    pagination:
+      label: Paginación
+      previous: Anterior
+      next: Siguiente
+      summary: Página %{page} de %{pages} · %{count} registros
+
+  nav:
+    projects: Proyectos
+    sponsors: Patrocinadores
+    tutors: Tutores
+
+  helpers:
+    money:
+      millions: "$ %{amount} M"
+    submit:
+      project:
+        create: Crear proyecto
+        update: Guardar cambios
+      sponsor:
+        create: Registrar patrocinador
+        update: Guardar cambios
+      tutor:
+        create: Registrar tutor
+        update: Guardar cambios
+      student_lead:
+        create: Asignar estudiante
+        update: Guardar cambios
+      sponsorship:
+        create: Registrar aporte
+
+  projects:
+    statuses:
+      proposed: Propuesto
+      in_progress: En curso
+      completed: Finalizado
+    funding:
+      label: Financiación de %{title}
+      figures: "%{funded} de %{budget}"
+      funded: Financiado
+    index:
+      title: Proyectos
+      lead: Proyectos de investigación y extensión con su avance de financiación.
+      new: Nuevo proyecto
+      export: Exportar CSV
+      projects: Proyectos
+      budget: Presupuesto total
+      committed: Aportes comprometidos
+      fully_funded: Financiados al 100 %
+      empty: No hay proyectos con este estado.
+    project:
+      no_tutor: Sin tutor asignado
+    show:
+      tutor: Tutor
+      no_tutor: Sin tutor asignado
+      starts_on: Inicio
+      not_scheduled: Sin fecha
+      budget: Presupuesto
+      remaining: Faltante
+      lead_title: Estudiante líder
+      lead_semester: "%{program} · semestre %{semester}"
+      no_lead: Este proyecto no tiene estudiante líder.
+      assign_lead: Asignar estudiante
+      edit_lead: Cambiar
+      sponsorships_title: Patrocinios
+      no_sponsorships: Aún no hay patrocinios para este proyecto.
+      confirm_destroy: "¿Eliminar el proyecto «%{title}» con su estudiante líder y patrocinios?"
+      confirm_remove: "¿Retirar el aporte de %{sponsor}?"
+      remove: Retirar
+    new:
+      title: Nuevo proyecto
+    edit:
+      title: Editar proyecto
+    form:
+      select_tutor: Sin tutor
+    create:
+      created: Proyecto creado.
+    update:
+      updated: Proyecto actualizado.
+    destroy:
+      destroyed: Proyecto eliminado.
+    sponsorships:
+      form:
+        select_sponsor: Selecciona un patrocinador
+        no_sponsors: Todos los patrocinadores ya apoyan este proyecto.
+      create:
+        created: Aporte registrado.
+      destroy:
+        destroyed: Aporte retirado.
+    student_leads:
+      new:
+        title: Asignar estudiante líder
+      edit:
+        title: Editar estudiante líder
+      create:
+        created: Estudiante líder asignado.
+      update:
+        updated: Estudiante líder actualizado.
+
+  sponsors:
+    kinds:
+      company: Empresa
+      ngo: ONG
+      public_entity: Entidad pública
+      university: Universidad
+    index:
+      title: Patrocinadores
+      lead: Empresas, ONG y entidades que financian proyectos.
+      new: Nuevo patrocinador
+      empty: No hay patrocinadores de este tipo.
+    show:
+      committed: Total comprometido
+      projects_title: Proyectos patrocinados
+      no_projects: Este patrocinador aún no apoya proyectos.
+      confirm_destroy: "¿Eliminar el patrocinador «%{name}»?"
+    new:
+      title: Nuevo patrocinador
+    edit:
+      title: Editar patrocinador
+    create:
+      created: Patrocinador registrado.
+    update:
+      updated: Patrocinador actualizado.
+    destroy:
+      destroyed: Patrocinador eliminado.
+      has_sponsorships: No se puede eliminar un patrocinador con aportes registrados.
+
+  tutors:
+    index:
+      title: Tutores
+      lead: Docentes que dirigen los proyectos.
+      new: Nuevo tutor
+      projects:
+        one: 1 proyecto
+        other: "%{count} proyectos"
+      empty: No hay tutores registrados.
+    show:
+      projects_title: Proyectos dirigidos
+      no_projects: Este tutor aún no dirige proyectos.
+      confirm_destroy: "¿Eliminar al tutor «%{name}»? Sus proyectos quedarán sin tutor."
+    new:
+      title: Nuevo tutor
+    edit:
+      title: Editar tutor
+    create:
+      created: Tutor registrado.
+    update:
+      updated: Tutor actualizado.
+    destroy:
+      destroyed: Tutor eliminado.
+
+  activerecord:
+    models:
+      project:
+        one: Proyecto
+        other: Proyectos
+      sponsor:
+        one: Patrocinador
+        other: Patrocinadores
+      sponsorship:
+        one: Patrocinio
+        other: Patrocinios
+      student_lead:
+        one: Estudiante líder
+        other: Estudiantes líderes
+      tutor:
+        one: Tutor
+        other: Tutores
+      user:
+        one: Usuario
+        other: Usuarios
+    attributes:
+      project:
+        title: Título
+        summary: Resumen
+        status: Estado
+        budget: Presupuesto (COP)
+        starts_on: Fecha de inicio
+        tutor: Tutor
+        tutor_id: Tutor
+      sponsor:
+        name: Razón social
+        kind: Tipo
+        nit: NIT
+        phone: Teléfono
+        email: Correo electrónico
+      sponsorship:
+        sponsor: Patrocinador
+        sponsor_id: Patrocinador
+        amount: Aporte (COP)
+        committed_on: Fecha del compromiso
+      student_lead:
+        name: Nombre
+        program: Programa académico
+        semester: Semestre
+        email: Correo electrónico
+        project: Proyecto
+      tutor:
+        name: Nombre
+        faculty: Facultad
+        email: Correo electrónico
+      user:
+        email_address: Correo electrónico
+        password: Contraseña
+        password_confirmation: Confirmar contraseña
+    errors:
+      messages:
+        invalid_nit: no es un NIT válido (formato 900123456-7 con dígito de verificación DIAN)
+      models:
+        sponsor:
+          attributes:
+            phone:
+              invalid: debe tener 10 dígitos (celular que inicia en 3 o fijo que inicia en 60)
+        sponsorship:
+          attributes:
+            sponsor:
+              taken: ya apoya este proyecto
+        student_lead:
+          attributes:
+            project:
+              taken: ya tiene un estudiante líder
+
+  sessions:
+    rate_limited: Demasiados intentos. Espera unos minutos e inténtalo de nuevo.
+    new:
+      title: Iniciar sesión
+      subtitle: Acceso para coordinadores de proyectos.
+      submit: Entrar
+      forgot_password: ¿Olvidaste tu contraseña?
+    create:
+      invalid: Correo o contraseña incorrectos.
+    destroy:
+      signed_out: Sesión cerrada.
+
+  passwords:
+    rate_limited: Demasiadas solicitudes. Espera unos minutos e inténtalo de nuevo.
+    invalid_token: El enlace para restablecer la contraseña no es válido o ya expiró.
+    new:
+      title: Recuperar contraseña
+      subtitle: Te enviaremos un enlace para crear una contraseña nueva.
+      submit: Enviar instrucciones
+    create:
+      sent: Si el correo está registrado, recibirás las instrucciones en unos minutos.
+    edit:
+      title: Nueva contraseña
+      submit: Guardar contraseña
+    update:
+      reset: Contraseña actualizada. Ya puedes iniciar sesión.
+
+  passwords_mailer:
+    reset:
+      subject: Restablece tu contraseña
+      greeting: Hola,
+      instructions: "Recibimos una solicitud para cambiar tu contraseña. Puedes crear una nueva en:"
+      link: este enlace
+      expires: El enlace expira en %{time}.

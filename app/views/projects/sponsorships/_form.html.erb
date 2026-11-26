@@ -1,0 +1,22 @@
+<div id="sponsorship_form">
+  <% if sponsors.any? %>
+    <%= form_with model: [ project, sponsorship ], class: "inline-form" do |form| %>
+      <%= render "shared/errors", record: sponsorship %>
+      <div class="field">
+        <%= form.label :sponsor_id %>
+        <%= form.select :sponsor_id, sponsors, { prompt: t("projects.sponsorships.form.select_sponsor") }, required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :amount %>
+        <%= form.number_field :amount, min: 1, step: 1, required: true %>
+      </div>
+      <div class="field">
+        <%= form.label :committed_on %>
+        <%= form.date_field :committed_on, required: true %>
+      </div>
+      <%= form.submit class: "button" %>
+    <% end %>
+  <% else %>
+    <p class="meta"><%= t("projects.sponsorships.form.no_sponsors") %></p>
+  <% end %>
+</div>

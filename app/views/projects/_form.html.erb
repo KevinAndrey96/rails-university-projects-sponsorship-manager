@@ -1,0 +1,35 @@
+<%= form_with model: project, class: "form card" do |form| %>
+  <%= render "shared/errors", record: project %>
+
+  <div class="form-grid">
+    <div class="field field-full">
+      <%= form.label :title %>
+      <%= form.text_field :title, required: true, maxlength: 150 %>
+    </div>
+    <div class="field field-full">
+      <%= form.label :summary %>
+      <%= form.text_area :summary, rows: 4, required: true, maxlength: 3_000 %>
+    </div>
+    <div class="field">
+      <%= form.label :status %>
+      <%= form.select :status, status_options, {}, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :tutor_id %>
+      <%= form.select :tutor_id, @tutors, { include_blank: t(".select_tutor") } %>
+    </div>
+    <div class="field">
+      <%= form.label :budget %>
+      <%= form.number_field :budget, min: 1, step: 1, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :starts_on %>
+      <%= form.date_field :starts_on %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "button" %>
+    <%= link_to t("app.cancel"), project.persisted? ? project_path(project) : projects_path, class: "button button-ghost" %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<div class="funding">
+  <div class="funding-figures">
+    <span><%= t("projects.funding.figures", funded: compact_cop(project.funded_amount), budget: compact_cop(project.budget)) %></span>
+    <strong><%= percentage(project.funding_ratio) %></strong>
+  </div>
+  <progress max="<%= project.budget %>" value="<%= [ project.funded_amount, project.budget ].min %>"
+    aria-label="<%= t("projects.funding.label", title: project.title) %>"></progress>
+</div>

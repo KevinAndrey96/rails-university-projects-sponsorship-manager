@@ -1,29 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <title><%= content_for(:title) || "Sponsorship Manager" %></title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} | #{t("app.name")}" : "#{t("app.name")} | #{t("app.tagline")}" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Sponsorship Manager">
+    <meta name="description" content="<%= t("app.description") %>">
+    <meta name="application-name" content="<%= t("app.name") %>">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
 
     <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="topbar">
+      <%= link_to root_path, class: "brand" do %>
+        <span class="brand-mark" aria-hidden="true">◆</span> <%= t("app.name") %>
+      <% end %>
+
+      <nav class="topbar-nav" aria-label="<%= t("app.navigation") %>">
+        <%= nav_link t("nav.projects"), projects_path %>
+        <%= nav_link t("nav.sponsors"), sponsors_path %>
+        <%= nav_link t("nav.tutors"), tutors_path %>
+        <% if authenticated? %>
+          <%= button_to t("app.sign_out"), session_path, method: :delete, class: "button button-ghost" %>
+        <% else %>
+          <%= link_to t("app.sign_in"), new_session_path, class: "button button-ghost" %>
+        <% end %>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div id="flash" class="flash-stack" aria-live="polite">
+        <%= render "shared/flash" %>
+      </div>
+
+      <%= yield %>
+    </main>
+
+    <footer class="footer">
+      <p>
+        <%= t("app.footer") %>
+        <%= link_to t("app.source_code"), "https://github.com/KevinAndrey96/rails-university-projects-sponsorship-manager" %>
+      </p>
+    </footer>
   </body>
 </html>

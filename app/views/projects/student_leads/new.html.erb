@@ -1,0 +1,10 @@
+<% content_for :title, t(".title") %>
+
+<header class="page-header">
+  <div>
+    <p class="breadcrumb"><%= link_to @project.title, project_path(@project) %></p>
+    <h1><%= t(".title") %></h1>
+  </div>
+</header>
+
+<%= render "form", project: @project, student_lead: @student_lead %>

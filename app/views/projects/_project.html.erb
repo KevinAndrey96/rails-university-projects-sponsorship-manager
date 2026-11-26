@@ -1,0 +1,9 @@
+<li class="card project-card" id="<%= dom_id(project) %>">
+  <div class="flag-header">
+    <h2><%= link_to project.title, project_path(project) %></h2>
+    <%= status_badge(project) %>
+  </div>
+  <p class="row-text"><%= truncate(project.summary, length: 140) %></p>
+  <p class="meta"><%= project.tutor ? "#{project.tutor.name} · #{project.tutor.faculty}" : t(".no_tutor") %></p>
+  <%= funding_bar(project) %>
+</li>

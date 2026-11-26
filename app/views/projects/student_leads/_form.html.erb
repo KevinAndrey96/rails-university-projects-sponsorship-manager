@@ -1,0 +1,27 @@
+<%= form_with model: student_lead, url: project_student_lead_path(project), class: "form card" do |form| %>
+  <%= render "shared/errors", record: student_lead %>
+
+  <div class="form-grid">
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true, maxlength: 120 %>
+    </div>
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.email_field :email, required: true, maxlength: 160 %>
+    </div>
+    <div class="field">
+      <%= form.label :program %>
+      <%= form.text_field :program, required: true, maxlength: 120 %>
+    </div>
+    <div class="field">
+      <%= form.label :semester %>
+      <%= form.number_field :semester, min: 1, max: 12, step: 1, required: true %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "button" %>
+    <%= link_to t("app.cancel"), project_path(project), class: "button button-ghost" %>
+  </div>
+<% end %>

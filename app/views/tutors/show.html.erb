@@ -1,0 +1,30 @@
+<% content_for :title, @tutor.name %>
+
+<header class="page-header">
+  <div>
+    <p class="breadcrumb"><%= link_to t("nav.tutors"), tutors_path %></p>
+    <h1><%= @tutor.name %></h1>
+    <p class="muted">
+      <%= @tutor.faculty %>
+      <% if authenticated? %>
+        · <%= mail_to @tutor.email %>
+      <% end %>
+    </p>
+  </div>
+  <% if authenticated? %>
+    <div class="header-side">
+      <%= link_to t("app.edit"), edit_tutor_path(@tutor), class: "button button-ghost" %>
+      <%= button_to t("app.destroy"), tutor_path(@tutor), method: :delete, class: "button button-ghost",
+            form: { data: { turbo_confirm: t(".confirm_destroy", name: @tutor.name) } } %>
+    </div>
+  <% end %>
+</header>
+
+<h2><%= t(".projects_title") %></h2>
+<% if @projects.any? %>
+  <ul class="project-grid">
+    <%= render partial: "projects/project", collection: @projects %>
+  </ul>
+<% else %>
+  <div class="card empty-state"><p><%= t(".no_projects") %></p></div>
+<% end %>

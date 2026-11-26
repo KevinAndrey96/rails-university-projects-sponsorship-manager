@@ -1,0 +1,37 @@
+<% content_for :title, t(".title") %>
+
+<header class="page-header">
+  <div>
+    <h1><%= t(".title") %></h1>
+    <p class="muted"><%= t(".lead") %></p>
+  </div>
+  <% if authenticated? %>
+    <%= link_to t(".new"), new_sponsor_path, class: "button" %>
+  <% end %>
+</header>
+
+<nav class="tabs" aria-label="<%= Sponsor.human_attribute_name(:kind) %>">
+  <%= link_to t("app.all"), sponsors_path, class: [ "tab", ("active" if params[:kind].blank?) ] %>
+  <% Sponsor.kinds.each_key do |kind| %>
+    <%= link_to t("sponsors.kinds.#{kind}"), sponsors_path(kind: kind), class: [ "tab", ("active" if params[:kind] == kind) ] %>
+  <% end %>
+</nav>
+
+<section class="card">
+  <% if @page.records.any? %>
+    <ul class="list">
+      <% @page.records.each do |sponsor| %>
+        <li class="row" id="<%= dom_id(sponsor) %>">
+          <div class="row-main">
+            <%= link_to sponsor.name, sponsor_path(sponsor), class: "row-title" %>
+            <p class="meta"><%= t("sponsors.kinds.#{sponsor.kind}") %> · NIT <%= sponsor.nit %></p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="empty-state"><%= t(".empty") %></p>
+  <% end %>
+</section>
+
+<%= render "shared/pagination", page: @page %>

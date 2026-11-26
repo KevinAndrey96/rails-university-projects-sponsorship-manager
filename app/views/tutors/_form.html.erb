@@ -1,0 +1,23 @@
+<%= form_with model: tutor, class: "form card" do |form| %>
+  <%= render "shared/errors", record: tutor %>
+
+  <div class="form-grid">
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true, maxlength: 120 %>
+    </div>
+    <div class="field">
+      <%= form.label :faculty %>
+      <%= form.text_field :faculty, required: true, maxlength: 120 %>
+    </div>
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.email_field :email, required: true, maxlength: 160 %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "button" %>
+    <%= link_to t("app.cancel"), tutor.persisted? ? tutor_path(tutor) : tutors_path, class: "button button-ghost" %>
+  </div>
+<% end %>

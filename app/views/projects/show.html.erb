@@ -1,0 +1,92 @@
+<% content_for :title, @project.title %>
+<%= turbo_stream_from @project %>
+
+<header class="page-header">
+  <div>
+    <p class="breadcrumb"><%= link_to t("nav.projects"), projects_path %></p>
+    <h1><%= @project.title %></h1>
+    <p class="muted"><%= @project.summary %></p>
+  </div>
+  <div class="header-side">
+    <%= status_badge(@project) %>
+    <% if authenticated? %>
+      <%= link_to t("app.edit"), edit_project_path(@project), class: "button button-ghost" %>
+      <%= button_to t("app.destroy"), project_path(@project), method: :delete, class: "button button-ghost",
+            form: { data: { turbo_confirm: t(".confirm_destroy", title: @project.title) } } %>
+    <% end %>
+  </div>
+</header>
+
+<div class="grid-2">
+  <section class="card">
+    <dl class="facts">
+      <dt><%= t(".tutor") %></dt>
+      <dd>
+        <% if @project.tutor %>
+          <%= link_to @project.tutor.name, tutor_path(@project.tutor) %>
+          <span class="meta"><%= @project.tutor.faculty %></span>
+        <% else %>
+          <%= t(".no_tutor") %>
+        <% end %>
+      </dd>
+      <dt><%= t(".starts_on") %></dt>
+      <dd><%= @project.starts_on ? l(@project.starts_on, format: :long) : t(".not_scheduled") %></dd>
+      <dt><%= t(".budget") %></dt>
+      <dd><%= cop(@project.budget) %></dd>
+      <dt><%= t(".remaining") %></dt>
+      <dd><%= cop(@project.remaining_amount) %></dd>
+    </dl>
+    <div class="stack"><%= funding_bar(@project) %></div>
+  </section>
+
+  <section class="card">
+    <div class="flag-header">
+      <h2><%= t(".lead_title") %></h2>
+      <% if authenticated? %>
+        <% if @project.student_lead %>
+          <%= link_to t(".edit_lead"), edit_project_student_lead_path(@project) %>
+        <% else %>
+          <%= link_to t(".assign_lead"), new_project_student_lead_path(@project) %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if (lead = @project.student_lead) %>
+      <p><strong><%= lead.name %></strong></p>
+      <p class="meta"><%= t(".lead_semester", program: lead.program, semester: lead.semester) %></p>
+      <% if authenticated? %>
+        <p class="meta"><%= mail_to lead.email %></p>
+      <% end %>
+    <% else %>
+      <p class="muted"><%= t(".no_lead") %></p>
+    <% end %>
+  </section>
+</div>
+
+<section class="card">
+  <h2><%= t(".sponsorships_title") %></h2>
+  <% if @sponsorships.any? %>
+    <ul class="list">
+      <% @sponsorships.each do |sponsorship| %>
+        <li class="row" id="<%= dom_id(sponsorship) %>">
+          <div class="row-main">
+            <%= link_to sponsorship.sponsor.name, sponsor_path(sponsorship.sponsor), class: "row-title" %>
+            <p class="meta"><%= t("sponsors.kinds.#{sponsorship.sponsor.kind}") %> · <%= l(sponsorship.committed_on, format: :long) %></p>
+          </div>
+          <div class="row-side">
+            <strong><%= cop(sponsorship.amount) %></strong>
+            <% if authenticated? %>
+              <%= button_to t(".remove"), project_sponsorship_path(@project, sponsorship), method: :delete, class: "link-danger",
+                    form: { data: { turbo_confirm: t(".confirm_remove", sponsor: sponsorship.sponsor.name) } } %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="muted"><%= t(".no_sponsorships") %></p>
+  <% end %>
+
+  <% if authenticated? %>
+    <%= render "projects/sponsorships/form", project: @project, sponsorship: @sponsorship, sponsors: @available_sponsors %>
+  <% end %>
+</section>

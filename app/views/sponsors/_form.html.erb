@@ -1,0 +1,31 @@
+<%= form_with model: sponsor, class: "form card" do |form| %>
+  <%= render "shared/errors", record: sponsor %>
+
+  <div class="form-grid">
+    <div class="field field-full">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true, maxlength: 150 %>
+    </div>
+    <div class="field">
+      <%= form.label :kind %>
+      <%= form.select :kind, sponsor_kind_options, {}, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :nit %>
+      <%= form.text_field :nit, required: true, placeholder: "900123456-7" %>
+    </div>
+    <div class="field">
+      <%= form.label :phone %>
+      <%= form.telephone_field :phone, required: true, placeholder: "6015551234" %>
+    </div>
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.email_field :email, required: true, maxlength: 160 %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "button" %>
+    <%= link_to t("app.cancel"), sponsor.persisted? ? sponsor_path(sponsor) : sponsors_path, class: "button button-ghost" %>
+  </div>
+<% end %>

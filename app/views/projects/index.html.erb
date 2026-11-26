@@ -1,0 +1,38 @@
+<% content_for :title, t(".title") %>
+
+<header class="page-header">
+  <div>
+    <h1><%= t(".title") %></h1>
+    <p class="muted"><%= t(".lead") %></p>
+  </div>
+  <div class="header-side">
+    <%= link_to t(".export"), projects_path(format: :csv, status: params[:status]), class: "button button-ghost", data: { turbo: false } %>
+    <% if authenticated? %>
+      <%= link_to t(".new"), new_project_path, class: "button" %>
+    <% end %>
+  </div>
+</header>
+
+<section class="kpis">
+  <%= render "shared/kpi", label: t(".projects"), value: @summary.projects_count %>
+  <%= render "shared/kpi", label: t(".budget"), value: compact_cop(@summary.total_budget) %>
+  <%= render "shared/kpi", label: t(".committed"), value: "#{compact_cop(@summary.committed_amount)} · #{percentage(@summary.funding_ratio)}" %>
+  <%= render "shared/kpi", label: t(".fully_funded"), value: @summary.fully_funded_count %>
+</section>
+
+<nav class="tabs" aria-label="<%= Project.human_attribute_name(:status) %>">
+  <%= link_to t("app.all"), projects_path, class: [ "tab", ("active" if params[:status].blank?) ] %>
+  <% Project.statuses.each_key do |status| %>
+    <%= link_to t("projects.statuses.#{status}"), projects_path(status: status), class: [ "tab", ("active" if params[:status] == status) ] %>
+  <% end %>
+</nav>
+
+<% if @page.records.any? %>
+  <ul class="project-grid">
+    <%= render partial: "project", collection: @page.records %>
+  </ul>
+<% else %>
+  <div class="card empty-state"><p><%= t(".empty") %></p></div>
+<% end %>
+
+<%= render "shared/pagination", page: @page %>
