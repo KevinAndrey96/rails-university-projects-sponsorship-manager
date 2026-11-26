@@ -18,6 +18,12 @@ gem "stimulus-rails"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 
+# Spanish translations for Rails validations, dates and helpers [https://github.com/svenfuchs/rails-i18n]
+gem "rails-i18n", "~> 8.0"
+
+# CSV funding reports; no longer a default gem since Ruby 3.4
+gem "csv", "~> 3.3"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

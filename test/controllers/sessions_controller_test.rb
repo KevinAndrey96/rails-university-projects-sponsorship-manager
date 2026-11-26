@@ -1,11 +1,13 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  setup { @user = User.take }
+  setup { @user = users(:one) }
 
   test "new" do
     get new_session_path
+
     assert_response :success
+    assert_select "h1", "Iniciar sesión"
   end
 
   test "create with valid credentials" do
@@ -20,10 +22,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_session_path
     assert_nil cookies[:session_id]
+
+    follow_redirect!
+    assert_select ".flash-alert", "Correo o contraseña incorrectos."
   end
 
   test "destroy" do
-    sign_in_as(User.take)
+    sign_in_as(@user)
 
     delete session_path
 
